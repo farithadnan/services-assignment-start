@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../shared/users.service';
 import { CounterService } from '../shared/counter.service';
 
@@ -7,7 +7,8 @@ import { CounterService } from '../shared/counter.service';
   templateUrl: './inactive-users.component.html',
   styleUrls: ['./inactive-users.component.css']
 })
-export class InactiveUsersComponent {
+export class InactiveUsersComponent implements OnInit {
+  inactiveUsers: string[] = [];
 
   constructor(
     private usersService: UsersService,
@@ -15,17 +16,14 @@ export class InactiveUsersComponent {
   ){}
 
   /**
-   * Getter for inactiveUsers
-   */
-  get inactiveUsers() {
-    return this.usersService.inactiveUsers;
-  }
-
-  /**
    * Getter for activeToInactiveCount
    */
   get inactiveToActiveCount() {
     return this.counterService.inactiveToActiveCounter;
+  }
+
+  ngOnInit(): void {
+    this.inactiveUsers = this.usersService.inactiveUsers;
   }
 
   /**
